@@ -1,0 +1,51 @@
+第一个词： python
+最后一个词： python
+前两个： ['python', 'is']
+从第 2 个到末尾： ['is', 'great', 'python']
+追加后： ['python', 'is', 'great', 'python', 'easy']
+列表长度： 5
+python 在列表里吗？ True
+java 在列表里吗？ False
+=== 遍历列表 ===
+python
+is
+great
+python
+easy
+排序后： ['easy', 'great', 'is', 'python', 'python']
+空字典： {}
+初始字典： {'name': 'AI审计师', 'age': 1}
+增改后： {'python': 1, 'java': 1}
+修改后： {'python': 99, 'java': 1}
+python 的次数： 99
+删除后： {'python': 99}
+python 在字典里吗？ True
+java 在字典里吗？ False
+原始文本： '  Python is great. Python is easy!  '
+转小写后： '  python is great. python is easy!  '
+去空白后： 'python is great. python is easy!'
+去标点后： 'python is great  python is easy '
+切分后词列表： ['python', 'is', 'great', 'python', 'is', 'easy']
+总词数： 6
+前 10 个词： ['python', 'is', 'great', 'python', 'is', 'easy']
+python 5
+is 5
+great. 1
+easy. 1
+learning 1
+fun. 1
+powerful 1
+and 1
+friendly. 1
+总词数: 17
+唯一词数: 9
+Top 10:
+python: 5
+is: 5
+great: 1
+easy: 1
+learning: 1
+fun: 1
+powerful: 1
+and: 1
+friendly: 1
