@@ -3,7 +3,7 @@
 ## 一、原始证据
 - 文章原文：week05/data/sample_article.txt
 - 脚本源码：week05/word_freq.py
-- Git commit：（提交后补充你的 commit hash）
+- Git commit：3905717
 
 ## 二、中间证据
 - 清洗后的词列表：由脚本的 clean_text() 和 get_words() 生成
