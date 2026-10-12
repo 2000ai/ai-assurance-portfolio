@@ -3,3 +3,15 @@
 你好，审计师
 早上好，审计师
 最小值：1，最大值：7
+函数内能看到全局 x = 10
+函数内能看到局部 y = 5
+用 import 调用 math.sqrt(16) = 4.0
+用 from import 调用 sqrt(16) = 4.0
+用别名调用 m.sqrt(16) = 4.0
+=== Day4 手动测试 converters.py ===
+celsius_to_fahrenheit(100) = 212.0
+kilometers_to_miles(1) = 0.621371
+kilograms_to_pounds(1) = 2.20462
+=== Day5 函数版单位换算器运行输出 ===
+=== 单位换算器 函数版 ===
+请输入摄氏度：
