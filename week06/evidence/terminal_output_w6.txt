@@ -1,0 +1,89 @@
+写入完成。
+=== 读取全部内容 ===
+第一行
+第二行
+第三行
+
+追加完成。
+=== 逐行读取 ===
+行内容： 第一行
+行内容： 第二行
+行内容： 第三行
+行内容： 追加的第四行
+捕获到 FileNotFoundError：文件不存在
+错误信息： [Errno 2] No such file or directory: 'week06/data/不存在的文件.txt'
+捕获到 IsADirectoryError：不能把目录当文件读
+错误信息： [Errno 21] Is a directory: 'week06/data/sandbox'
+捕获到 UnicodeDecodeError：编码不匹配
+错误信息： 'utf-8' codec can't decode byte 0xd5 in position 0: invalid continuation byte
+兜底捕获： ValueError - invalid literal for int() with base 10: 'abc'
+尝试打开文件...
+文件内容长度： 19
+=== 无论成功失败，这句都会执行 ===
+=== Day3 日志意识练习 ===
+错误已写入日志： week06/evidence/error_log_w6.log
+[2026-10-13 13:25:11] ERROR | file=不存在的文件.txt | type=FileNotFoundError | message=[Errno 2] No such file or directory: '不存在的文件.txt'
+TRACEBACK:
+Traceback (most recent call last):
+  File "/Users/zhjia/ai-assurance-portfolio/week06/practice/logging_practice.py", line 29, in <module>
+    with open("不存在的文件.txt", "r", encoding="utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '不存在的文件.txt'
+
+--------------------------------------------------------------------------------
+[2026-10-13 13:43:21] ERROR | file=不存在的文件.txt | type=FileNotFoundError | message=[Errno 2] No such file or directory: '不存在的文件.txt'
+TRACEBACK:
+Traceback (most recent call last):
+  File "/Users/zhjia/ai-assurance-portfolio/week06/practice/logging_practice.py", line 29, in <module>
+    with open("不存在的文件.txt", "r", encoding="utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '不存在的文件.txt'
+
+--------------------------------------------------------------------------------
+[2026-10-13 13:44:44] ERROR | file=不存在的文件.txt | type=FileNotFoundError | message=[Errno 2] No such file or directory: '不存在的文件.txt'
+TRACEBACK:
+Traceback (most recent call last):
+  File "/Users/zhjia/ai-assurance-portfolio/week06/practice/logging_practice.py", line 29, in <module>
+    with open("不存在的文件.txt", "r", encoding="utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '不存在的文件.txt'
+
+--------------------------------------------------------------------------------
+=== Day4 批量整理 v0 运行输出 ===
+=== Day5 批量整理 v1 运行输出 ===
+=== 批量整理开始 ===
+成功: 0, 失败: 0, 跳过目录: 4
+错误日志: week06/evidence/error_log_w6.log
+=== Day5 受控异常测试 ===
+源目录不存在: week06/data/not_exist
+[2026-10-13 13:25:11] ERROR | file=不存在的文件.txt | type=FileNotFoundError | message=[Errno 2] No such file or directory: '不存在的文件.txt'
+TRACEBACK:
+Traceback (most recent call last):
+  File "/Users/zhjia/ai-assurance-portfolio/week06/practice/logging_practice.py", line 29, in <module>
+    with open("不存在的文件.txt", "r", encoding="utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '不存在的文件.txt'
+
+--------------------------------------------------------------------------------
+[2026-10-13 13:43:21] ERROR | file=不存在的文件.txt | type=FileNotFoundError | message=[Errno 2] No such file or directory: '不存在的文件.txt'
+TRACEBACK:
+Traceback (most recent call last):
+  File "/Users/zhjia/ai-assurance-portfolio/week06/practice/logging_practice.py", line 29, in <module>
+    with open("不存在的文件.txt", "r", encoding="utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '不存在的文件.txt'
+
+--------------------------------------------------------------------------------
+[2026-10-13 13:44:44] ERROR | file=不存在的文件.txt | type=FileNotFoundError | message=[Errno 2] No such file or directory: '不存在的文件.txt'
+TRACEBACK:
+Traceback (most recent call last):
+  File "/Users/zhjia/ai-assurance-portfolio/week06/practice/logging_practice.py", line 29, in <module>
+    with open("不存在的文件.txt", "r", encoding="utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '不存在的文件.txt'
+
+--------------------------------------------------------------------------------
+[2026-10-13 14:48:59] ERROR | file=week06/data/not_exist | type=FileNotFoundError | message=源目录不存在
+--------------------------------------------------------------------------------
+[2026-10-13 14:49:41] ERROR | file=week06/data/not_exist | type=FileNotFoundError | message=源目录不存在
+--------------------------------------------------------------------------------

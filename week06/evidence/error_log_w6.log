@@ -1,0 +1,31 @@
+[2026-10-13 13:25:11] ERROR | file=不存在的文件.txt | type=FileNotFoundError | message=[Errno 2] No such file or directory: '不存在的文件.txt'
+TRACEBACK:
+Traceback (most recent call last):
+  File "/Users/zhjia/ai-assurance-portfolio/week06/practice/logging_practice.py", line 29, in <module>
+    with open("不存在的文件.txt", "r", encoding="utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '不存在的文件.txt'
+
+--------------------------------------------------------------------------------
+[2026-10-13 13:43:21] ERROR | file=不存在的文件.txt | type=FileNotFoundError | message=[Errno 2] No such file or directory: '不存在的文件.txt'
+TRACEBACK:
+Traceback (most recent call last):
+  File "/Users/zhjia/ai-assurance-portfolio/week06/practice/logging_practice.py", line 29, in <module>
+    with open("不存在的文件.txt", "r", encoding="utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '不存在的文件.txt'
+
+--------------------------------------------------------------------------------
+[2026-10-13 13:44:44] ERROR | file=不存在的文件.txt | type=FileNotFoundError | message=[Errno 2] No such file or directory: '不存在的文件.txt'
+TRACEBACK:
+Traceback (most recent call last):
+  File "/Users/zhjia/ai-assurance-portfolio/week06/practice/logging_practice.py", line 29, in <module>
+    with open("不存在的文件.txt", "r", encoding="utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '不存在的文件.txt'
+
+--------------------------------------------------------------------------------
+[2026-10-13 14:48:59] ERROR | file=week06/data/not_exist | type=FileNotFoundError | message=源目录不存在
+--------------------------------------------------------------------------------
+[2026-10-13 14:49:41] ERROR | file=week06/data/not_exist | type=FileNotFoundError | message=源目录不存在
+--------------------------------------------------------------------------------
