@@ -1,0 +1,370 @@
+=== Day2 密钥管理 ===
+已创建 .env 和 .env.example，更新 .gitignore，安装 python-dotenv。
+密钥已从环境变量读取，未硬编码，未入库。
+API Key 是否加载: 是
+API Key 前 8 位: 987c325d***
+Base URL: https://open.bigmodel.cn/api/paas/v4/
+模型: glm-4-flash
+=== Day3 最小 API 调用 ===
+模型回答：
+审计证据是审计人员为支持审计结论而收集的、具有相关性和可靠性的信息。
+
+Token 消耗：输入 26，输出 22，总计 48
+=== Day5 消息结构与多轮对话 ===
+=== 多轮对话开始 ===
+输入 quit 退出
+
+你: 你: === Day5 消息结构与多轮对话 ===
+=== 多轮对话开始 ===
+输入 quit 退出
+
+你: Traceback (most recent call last):
+  File "/Users/zhjia/ai-assurance-portfolio/week08/practice/messages_practice_w8.py", line 17, in <module>
+    user_input = input("你: ").strip()
+                 ^^^^^^^^^^^^^
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/Users/zhjia/ai-assurance-portfolio/week08/practice/messages_practice_w8.py", line 17, in <module>
+    user_input = input("你: ").strip()
+                 ^^^^^^^^^^^^^
+KeyboardInterrupt
+=== Day3 最小 API 调用 ===
+--- 方式 A：OpenAI SDK ---
+审计证据是审计人员为支持审计结论而收集的、与审计目标相关的信息。
+
+--- Token 消耗 ---
+输入 tokens: 26
+输出 tokens: 21
+总计 tokens: 47
+--- 方式 B：requests 裸发 ---
+HTTP 状态码: 200
+响应体:
+{'choices': [{'finish_reason': 'stop', 'index': 0, 'message': {'content': '审计证据是指为支持审计意见而收集的，足以证实审计目标实现情况的各种信息。', 'role': 'assistant'}}], 'created': 1791990646, 'id': '20261014231045f03e7dfd3b1449b0', 'model': 'glm-4-flash', 'object': 'chat.completion', 'request_id': '20261014231045f03e7dfd3b1449b0', 'usage': {'completion_tokens': 22, 'prompt_tokens': 12, 'total_tokens': 34}}
+=== Day4 封装 LLMClient ===
+--- 正常调用 ---
+回答: 审计证据是审计人员为支持审计意见和结论所获取的、与审计目标相关的信息。
+耗时: 1.14 秒
+Token 消耗: 46
+--- 异常测试（错误密钥）---
+ok: False
+error: AuthenticationError: Error code: 401 - {'error': {'code': '401', 'message': '令牌已过期或验证不正确'}}
+--- 错误日志 ---
+[2026-10-14 23:16:24] ERROR | type=AuthenticationError | message=Error code: 401 - {'error': {'code': '401', 'message': '令牌已过期或验证不正确'}} | elapsed=0.17s
+TRACEBACK:
+Traceback (most recent call last):
+  File "/Users/zhjia/ai-assurance-portfolio/week07/ai_assurance_tools/llm_client.py", line 27, in chat
+    response = self.client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 1318, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1440, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1213, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.AuthenticationError: Error code: 401 - {'error': {'code': '401', 'message': '令牌已过期或验证不正确'}}
+
+--------------------------------------------------------------------------------
+[2026-10-14 23:17:12] ERROR | type=AuthenticationError | message=Error code: 401 - {'error': {'code': '401', 'message': '令牌已过期或验证不正确'}} | elapsed=0.16s
+TRACEBACK:
+Traceback (most recent call last):
+  File "/Users/zhjia/ai-assurance-portfolio/week07/ai_assurance_tools/llm_client.py", line 27, in chat
+    response = self.client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 1318, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1440, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1213, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.AuthenticationError: Error code: 401 - {'error': {'code': '401', 'message': '令牌已过期或验证不正确'}}
+
+--------------------------------------------------------------------------------
+=== Day5 消息结构与多轮对话 ===
+--- 上下文丢失对比实验 ---
+第 1 轮回答: 工作底稿是审计过程中审计人员用来记录审计程序、获取的审计证据以及得出审计结论的文档。它是审计工作的重要组成部分，通常包括以下内容：
+
+1. **审计计划**：包括审计目标、审计范围、审计策略等。
+2. **审计程序**：记录了审计人员执行的各项审计程序，如检查、分析、测试等。
+3. **审计证据**：包括审计人员获取的各种证据，如财务报表、合同、凭证等。
+4. **审计结论**：根据审计证据得出的审计意见或建议。
+5. **其他相关资料**：如审计人员的工作笔记、通信记录等。
+
+工作底稿的目的是确保审计工作的完整性和可追溯性，便于审计人员、审计机构或第三方对审计过程进行监督和复核。
+第 2 轮回答（不带历史）: 作为简洁的审计助手，我与普通笔记的主要区别如下：
+
+1. **专业性**：我专注于审计领域，提供与审计相关的专业知识和信息，而普通笔记可能更偏向于个人记录和总结。
+
+2. **结构化**：我提供结构化的内容，如审计流程、标准、法规等，而普通笔记可能更随意，缺乏系统性。
+
+3. **更新性**：我提供的信息和知识是实时更新的，确保你获取到最新的审计信息，而普通笔记可能随着时间的推移而变得过时。
+
+4. **互动性**：我可以根据你的需求提供定制化的信息和解答，而普通笔记通常只能被动地阅读。
+
+5. **准确性**：我提供的信息是经过验证的，确保准确性，而普通笔记可能包含个人理解或错误。
+
+6. **便捷性**：我可以随时随地通过互联网提供服务，而普通笔记可能需要你亲自查找和整理。
+
+总之，我作为审计助手，旨在提供专业、结构化、更新及时、互动性强、准确且便捷的审计相关信息和服务。
+
+【多轮对话需交互，输出未自动保存，请手动记录关键对话。】
+=== Day6 命令行机器人 ===
+chatbot.py 已创建，支持多轮对话 + clear + 脱敏留痕。
+脱敏日志：week08/evidence/api_trace_w8.log
+原始日志（不提交）：week08/evidence/api_trace_raw_w8.log
+--- 脱敏日志前 30 行 ---
+[2026-10-14 23:26:36] MASKED
+{
+  "timestamp": "2026-10-14 23:26:36",
+  "request": {
+    "model": "glm-4-flash",
+    "messages": [
+      {
+        "role": "system",
+        "content": "你是一个简洁的审计助手，回答不超过三句话。"
+      },
+      {
+        "role": "user",
+        "content": "什么是审计证据？"
+      },
+      {
+        "role": "assistant",
+        "content": "审计证据是审计人员为支持审计意见和结论而获取的、与被审计单位财务报表相关的信息。"
+      }
+    ]
+  },
+  "response": {
+    "content": "审计证据是审计人员为支持审计意见和结论而获取的、与被审计单位财务报表相关的信息。",
+    "usage": {
+      "completion_tokens": 26,
+      "prompt_tokens": 23,
+      "total_tokens": 49,
+      "completion_tokens_details": null,
+      "prompt_tokens_details": null
+    }
+  }
+=== Day7 报错定位训练 ===
+=== 正常调用 ===
+ok: True
+content: 你好👋！很高兴见到你，有什么可以帮助你的吗？
+
+=== 错误 1：401 错误密钥 ===
+ok: False
+error: AuthenticationError: Error code: 401 - {'error': {'code': '401', 'message': '令牌已过期或验证不正确'}}
+
+=== 错误 2：404 错误 base_url ===
+ok: False
+error: NotFoundError: Error code: 404 - {'timestamp': '2026-10-14T15:40:50.594+00:00', 'status': 404, 'error': 'Not Found', 'path': '/v4/wrongpath/chat/completions'}
+=== 错误 3：400 messages 结构错误 ===
+ok: False
+error: BadRequestError: Error code: 400 - {'error': {'message': 'JSON parse error: Cannot deserialize value of type `java.util.ArrayList<com.wd.paas.api.domain.v4.chat.ChatMessage>` from String value (token `JsonToken.VALUE_STRING`); nested exception is com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot deserialize value of type `java.util.ArrayList<com.wd.paas.api.domain.v4.chat.ChatMessage>` from String value (token `JsonToken.VALUE_STRING`)\n at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 1, column: 50] (through reference chain: com.wd.paas.api.domain.v4.chat.ChatCompletionRequest["messages"])', 'code': '400'}}
+--- 错误日志 ---
+[2026-10-14 23:16:24] ERROR | type=AuthenticationError | message=Error code: 401 - {'error': {'code': '401', 'message': '令牌已过期或验证不正确'}} | elapsed=0.17s
+TRACEBACK:
+Traceback (most recent call last):
+  File "/Users/zhjia/ai-assurance-portfolio/week07/ai_assurance_tools/llm_client.py", line 27, in chat
+    response = self.client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 1318, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1440, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1213, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.AuthenticationError: Error code: 401 - {'error': {'code': '401', 'message': '令牌已过期或验证不正确'}}
+
+--------------------------------------------------------------------------------
+[2026-10-14 23:17:12] ERROR | type=AuthenticationError | message=Error code: 401 - {'error': {'code': '401', 'message': '令牌已过期或验证不正确'}} | elapsed=0.16s
+TRACEBACK:
+Traceback (most recent call last):
+  File "/Users/zhjia/ai-assurance-portfolio/week07/ai_assurance_tools/llm_client.py", line 27, in chat
+    response = self.client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 1318, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1440, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1213, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.AuthenticationError: Error code: 401 - {'error': {'code': '401', 'message': '令牌已过期或验证不正确'}}
+
+--------------------------------------------------------------------------------
+[2026-10-14 23:37:08] ERROR | type=AuthenticationError | message=Error code: 401 - {'error': {'code': '401', 'message': '令牌已过期或验证不正确'}} | elapsed=0.15s
+TRACEBACK:
+Traceback (most recent call last):
+  File "/Users/zhjia/ai-assurance-portfolio/week07/ai_assurance_tools/llm_client.py", line 27, in chat
+    response = self.client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 1318, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1440, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1213, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.AuthenticationError: Error code: 401 - {'error': {'code': '401', 'message': '令牌已过期或验证不正确'}}
+
+--------------------------------------------------------------------------------
+[2026-10-14 23:37:09] ERROR | type=NotFoundError | message=Error code: 404 - {'timestamp': '2026-10-14T15:37:09.244+00:00', 'status': 404, 'error': 'Not Found', 'path': '/v4/wrongpath/chat/completions'} | elapsed=0.15s
+TRACEBACK:
+Traceback (most recent call last):
+  File "/Users/zhjia/ai-assurance-portfolio/week07/ai_assurance_tools/llm_client.py", line 27, in chat
+    response = self.client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 1318, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1440, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1213, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'timestamp': '2026-10-14T15:37:09.244+00:00', 'status': 404, 'error': 'Not Found', 'path': '/v4/wrongpath/chat/completions'}
+
+--------------------------------------------------------------------------------
+[2026-10-14 23:40:01] ERROR | type=AuthenticationError | message=Error code: 401 - {'error': {'code': '401', 'message': '令牌已过期或验证不正确'}} | elapsed=0.16s
+TRACEBACK:
+Traceback (most recent call last):
+  File "/Users/zhjia/ai-assurance-portfolio/week07/ai_assurance_tools/llm_client.py", line 27, in chat
+    response = self.client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 1318, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1440, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1213, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.AuthenticationError: Error code: 401 - {'error': {'code': '401', 'message': '令牌已过期或验证不正确'}}
+
+--------------------------------------------------------------------------------
+[2026-10-14 23:40:01] ERROR | type=NotFoundError | message=Error code: 404 - {'timestamp': '2026-10-14T15:40:01.684+00:00', 'status': 404, 'error': 'Not Found', 'path': '/v4/wrongpath/chat/completions'} | elapsed=0.15s
+TRACEBACK:
+Traceback (most recent call last):
+  File "/Users/zhjia/ai-assurance-portfolio/week07/ai_assurance_tools/llm_client.py", line 27, in chat
+    response = self.client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 1318, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1440, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1213, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'timestamp': '2026-10-14T15:40:01.684+00:00', 'status': 404, 'error': 'Not Found', 'path': '/v4/wrongpath/chat/completions'}
+
+--------------------------------------------------------------------------------
+[2026-10-14 23:40:01] ERROR | type=BadRequestError | message=Error code: 400 - {'error': {'message': 'JSON parse error: Cannot deserialize value of type `java.util.ArrayList<com.wd.paas.api.domain.v4.chat.ChatMessage>` from String value (token `JsonToken.VALUE_STRING`); nested exception is com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot deserialize value of type `java.util.ArrayList<com.wd.paas.api.domain.v4.chat.ChatMessage>` from String value (token `JsonToken.VALUE_STRING`)\n at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 1, column: 50] (through reference chain: com.wd.paas.api.domain.v4.chat.ChatCompletionRequest["messages"])', 'code': '400'}} | elapsed=0.16s
+TRACEBACK:
+Traceback (most recent call last):
+  File "/Users/zhjia/ai-assurance-portfolio/week07/ai_assurance_tools/llm_client.py", line 27, in chat
+    response = self.client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 1318, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1440, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1213, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'message': 'JSON parse error: Cannot deserialize value of type `java.util.ArrayList<com.wd.paas.api.domain.v4.chat.ChatMessage>` from String value (token `JsonToken.VALUE_STRING`); nested exception is com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot deserialize value of type `java.util.ArrayList<com.wd.paas.api.domain.v4.chat.ChatMessage>` from String value (token `JsonToken.VALUE_STRING`)\n at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 1, column: 50] (through reference chain: com.wd.paas.api.domain.v4.chat.ChatCompletionRequest["messages"])', 'code': '400'}}
+
+--------------------------------------------------------------------------------
+[2026-10-14 23:40:50] ERROR | type=AuthenticationError | message=Error code: 401 - {'error': {'code': '401', 'message': '令牌已过期或验证不正确'}} | elapsed=0.15s
+TRACEBACK:
+Traceback (most recent call last):
+  File "/Users/zhjia/ai-assurance-portfolio/week07/ai_assurance_tools/llm_client.py", line 27, in chat
+    response = self.client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 1318, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1440, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1213, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.AuthenticationError: Error code: 401 - {'error': {'code': '401', 'message': '令牌已过期或验证不正确'}}
+
+--------------------------------------------------------------------------------
+[2026-10-14 23:40:50] ERROR | type=NotFoundError | message=Error code: 404 - {'timestamp': '2026-10-14T15:40:50.594+00:00', 'status': 404, 'error': 'Not Found', 'path': '/v4/wrongpath/chat/completions'} | elapsed=0.16s
+TRACEBACK:
+Traceback (most recent call last):
+  File "/Users/zhjia/ai-assurance-portfolio/week07/ai_assurance_tools/llm_client.py", line 27, in chat
+    response = self.client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 1318, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1440, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1213, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'timestamp': '2026-10-14T15:40:50.594+00:00', 'status': 404, 'error': 'Not Found', 'path': '/v4/wrongpath/chat/completions'}
+
+--------------------------------------------------------------------------------
+[2026-10-14 23:40:50] ERROR | type=BadRequestError | message=Error code: 400 - {'error': {'message': 'JSON parse error: Cannot deserialize value of type `java.util.ArrayList<com.wd.paas.api.domain.v4.chat.ChatMessage>` from String value (token `JsonToken.VALUE_STRING`); nested exception is com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot deserialize value of type `java.util.ArrayList<com.wd.paas.api.domain.v4.chat.ChatMessage>` from String value (token `JsonToken.VALUE_STRING`)\n at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 1, column: 50] (through reference chain: com.wd.paas.api.domain.v4.chat.ChatCompletionRequest["messages"])', 'code': '400'}} | elapsed=0.16s
+TRACEBACK:
+Traceback (most recent call last):
+  File "/Users/zhjia/ai-assurance-portfolio/week07/ai_assurance_tools/llm_client.py", line 27, in chat
+    response = self.client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 1318, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1440, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zhjia/ai-assurance-portfolio/week07/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1213, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'message': 'JSON parse error: Cannot deserialize value of type `java.util.ArrayList<com.wd.paas.api.domain.v4.chat.ChatMessage>` from String value (token `JsonToken.VALUE_STRING`); nested exception is com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot deserialize value of type `java.util.ArrayList<com.wd.paas.api.domain.v4.chat.ChatMessage>` from String value (token `JsonToken.VALUE_STRING`)\n at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 1, column: 50] (through reference chain: com.wd.paas.api.domain.v4.chat.ChatCompletionRequest["messages"])', 'code': '400'}}
+
+--------------------------------------------------------------------------------

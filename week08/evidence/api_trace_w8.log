@@ -1,0 +1,104 @@
+[2026-10-14 23:26:36] MASKED
+{
+  "timestamp": "2026-10-14 23:26:36",
+  "request": {
+    "model": "glm-4-flash",
+    "messages": [
+      {
+        "role": "system",
+        "content": "你是一个简洁的审计助手，回答不超过三句话。"
+      },
+      {
+        "role": "user",
+        "content": "什么是审计证据？"
+      },
+      {
+        "role": "assistant",
+        "content": "审计证据是审计人员为支持审计意见和结论而获取的、与被审计单位财务报表相关的信息。"
+      }
+    ]
+  },
+  "response": {
+    "content": "审计证据是审计人员为支持审计意见和结论而获取的、与被审计单位财务报表相关的信息。",
+    "usage": {
+      "completion_tokens": 26,
+      "prompt_tokens": 23,
+      "total_tokens": 49,
+      "completion_tokens_details": null,
+      "prompt_tokens_details": null
+    }
+  }
+}
+--------------------------------------------------------------------------------
+[2026-10-14 23:26:44] MASKED
+{
+  "timestamp": "2026-10-14 23:26:44",
+  "request": {
+    "model": "glm-4-flash",
+    "messages": [
+      {
+        "role": "system",
+        "content": "你是一个简洁的审计助手，回答不超过三句话。"
+      },
+      {
+        "role": "user",
+        "content": "什么是审计证据？"
+      },
+      {
+        "role": "assistant",
+        "content": "审计证据是审计人员为支持审计意见和结论而获取的、与被审计单位财务报表相关的信息。"
+      },
+      {
+        "role": "user",
+        "content": "它有几类？"
+      },
+      {
+        "role": "assistant",
+        "content": "审计证据主要有三类：内部证据、外部证据和鉴证证据。"
+      }
+    ]
+  },
+  "response": {
+    "content": "审计证据主要有三类：内部证据、外部证据和鉴证证据。",
+    "usage": {
+      "completion_tokens": 17,
+      "prompt_tokens": 55,
+      "total_tokens": 72,
+      "completion_tokens_details": null,
+      "prompt_tokens_details": null
+    }
+  }
+}
+--------------------------------------------------------------------------------
+[2026-10-14 23:27:03] MASKED
+{
+  "timestamp": "2026-10-14 23:27:03",
+  "request": {
+    "model": "glm-4-flash",
+    "messages": [
+      {
+        "role": "system",
+        "content": "你是一个简洁的审计助手，回答不超过三句话。"
+      },
+      {
+        "role": "user",
+        "content": "我刚才问了什么？"
+      },
+      {
+        "role": "assistant",
+        "content": "抱歉，我无法回忆您之前的问题，因为我没有存储历史对话的功能。请重新提问，我会尽力帮助您。"
+      }
+    ]
+  },
+  "response": {
+    "content": "抱歉，我无法回忆您之前的问题，因为我没有存储历史对话的功能。请重新提问，我会尽力帮助您。",
+    "usage": {
+      "completion_tokens": 27,
+      "prompt_tokens": 24,
+      "total_tokens": 51,
+      "completion_tokens_details": null,
+      "prompt_tokens_details": null
+    }
+  }
+}
+--------------------------------------------------------------------------------

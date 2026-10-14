@@ -1,0 +1,11 @@
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+.venv_clean/
+.env
+.env.*
+!.env.example
+week08/evidence/api_trace_raw_w8.log
+week08/evidence/error_log_w8.log

@@ -1,0 +1,53 @@
+=== Day3 venv 与 pip 练习 ===
+--- python 路径 ---
+certifi==2026.7.22
+charset-normalizer==3.5.2
+idna==3.20
+requests==2.34.2
+urllib3==2.8.0
+--- pip list（部分）---
+certifi==2026.7.22
+charset-normalizer==3.5.2
+idna==3.20
+requests==2.34.2
+urllib3==2.8.0
+=== Day4 项目结构 ===
+ai_assurance_tools
+data
+evidence
+logs
+practice
+pyproject.toml
+README.md
+requirements.txt
+
+./ai_assurance_tools:
+__init__.py
+__pycache__
+logging_utils.py
+organizer.py
+
+./ai_assurance_tools/__pycache__:
+__init__.cpython-312.pyc
+logging_utils.cpython-312.pyc
+
+./data:
+sandbox
+
+./data/sandbox:
+
+./evidence:
+terminal_output_w7.txt
+
+./logs:
+
+./practice:
+class_basics.py
+encapsulation_practice.py
+<function write_error_log at 0x107bd1d00>
+=== Day5 FileOrganizer 类运行输出 ===
+=== W7 可安装小包 批量整理 ===
+源目录不存在: week07/data/sandbox
+成功: 0, 失败: 0, 跳过目录: 0
+错误日志: week07/evidence/error_log_w7.log
+FileOrganizer(src_dir=week07/data/sandbox, success=0, failed=0, skipped=0)
